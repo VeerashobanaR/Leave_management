@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medical Leave</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT51cIYJGzEuddhq8O623_bYHM6gYtxmxpSHA&usqp=CAU');
+            background-size: cover;
+            background-repeat: no-repeat; /* Prevent background from repeating */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Adding some transparency to the container background */
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 420px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+
+        span {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Medical Leave</h1>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate">
+        <!-- Add Purpose Label and Input -->
+        <label for="purpose">Purpose:</label>
+        <input type="text" id="purpose">
+        <!-- End of Purpose Label and Input -->
+        <button onclick="calculateMedicalLeave()">Calculate Medical Leave</button>
+        <p>Medical Leave Remaining: <span id="remainingMedicalLeave">10</span></p>
+        <p>Total Leave Days: <span id="totalLeaveDays">0</span></p>
+        <!-- Add Submit Button -->
+        <button onclick="submitForm()">Submit</button>
+    </div>
+
+    <script>
+        function calculateMedicalLeave() {
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            const purpose = document.getElementById('purpose').value; // Get the purpose value
+            const millisecondsInADay = 24 * 60 * 60 * 1000;
+
+            if (endDate < startDate) {
+                alert('End date must be after the start date.');
+                return;
+            }
+
+            const totalDays = Math.round((endDate - startDate) / millisecondsInADay) + 1;
+            const remainingMedicalLeave = parseInt(document.getElementById('remainingMedicalLeave').textContent);
+            const usedMedicalLeave = totalDays;
+            const remainingMedicalLeaveDays = remainingMedicalLeave - usedMedicalLeave;
+            document.getElementById('remainingMedicalLeave').textContent = remainingMedicalLeaveDays;
+            document.getElementById('totalLeaveDays').textContent = totalDays;
+        }
+
+        // Function to handle form submission
+        function submitForm() {
+            const purpose = document.getElementById('purpose').value;
+            const totalLeaveDays = document.getElementById('totalLeaveDays').textContent;
+
+            // You can add your desired submission logic here
+            // For now, let's display an alert with the purpose and total leave days
+            alert(`Leave Application Submitted:\n\nPurpose: ${purpose}\nTotal Leave Days: ${totalLeaveDays}`);
+        }
+    </script>
+</body>
+</html>
